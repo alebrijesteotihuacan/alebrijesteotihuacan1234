@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altas de Jugadores</title>
+    <link rel="stylesheet" href="altas.css">
+    <link rel="stylesheet" href="/Menu/menu.css">
+    <script defer src="altas.js"></script>
+    <script defer src="/Menu/menu.js"></script>
+</head>
+<body>
+  <header class="header">
+    <a href="/DashboardGeneral/dashboard.html">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591"
+        alt="Logo Alebrijes"
+        class="logo"
+      />
+    </a>
+    <button class="menu-btn" id="menuToggle">&#9776;</button>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="/DashboardGeneral/dashboard.html">Inicio</a></li>
+      <li><a href="/Jugadores/jugadores.html">Jugadores</a></li>
+      <li><a href="/Personal/personal.html">Personal</a></li>
+      <li><a href="/Pagos/pagos.html">Pagos</a></li>
+      <li><a class="active" href="/Altas/altas.html">Altas</a></li>
+      <li><a href="/Bajas/bajas.html">Bajas</a></li>
+      <li><a href="/Exportar/exportar.html">Exportar</a></li>
+      <li><a href="/Inventario/inventario.html">Inventario</a></li>
+      <li><a href="/Escuela/escuela.html">Escuela</a></li>
+      <li><a href="/CasaClub/casaclub.html">Casa Club</a></li>
+    </ul>
+  </nav>
+
+<section class="alta-view">
+    <h2>Registro de Jugador</h2>
+    <form id="formAltaJugador">
+        <div class="form-grid">
+            <label>Fecha de registro:
+                <input type="date" name="fecha_registro" required>
+            </label>
+            <label>Apellido Paterno:
+                <input type="text" name="apellido_paterno" required>
+            </label>
+            <label>Apellido Materno:
+                <input type="text" name="apellido_materno" required>
+            </label>
+            <label>Nombres:
+                <input type="text" name="nombres" required>
+            </label>
+            <label>Lugar de Nacimiento:
+                <input type="text" name="lugar_nacimiento">
+            </label>
+            <label>Fecha de Nacimiento:
+                <input type="date" name="fecha_nacimiento" id="fechaNacimiento" required>
+            </label>
+            <label>Edad (Años):
+                <input type="number" name="edad_anios" id="edadAnios" readonly>
+            </label>
+            <label>Edad (Meses):
+                <input type="number" name="edad_meses" id="edadMeses" readonly>
+            </label>
+            <label>Dirección de Origen:
+                <input type="text" name="direccion_origen">
+            </label>
+            <label>Dirección Tutor:
+                <input type="text" name="direccion_tutor" id="direccionTutor" disabled>
+            </label>
+            <label>Posición de Juego:
+                <input type="text" name="posicion">
+            </label>
+            <label>¿Ha sufrido lesiones?:
+                <input type="text" name="lesiones">
+            </label>
+            <label>Tipo de Sangre:
+                <input type="text" name="sangre">
+            </label>
+            <label>No. Certificado (Seguro):
+                <input type="text" name="certificado">
+            </label>
+            <label>Celular Jugador:
+                <input type="tel" name="celular_jugador">
+            </label>
+            <label>¿Eres Alergico?, ¿a qué?:
+                <input type="text" name="alergias">
+            </label>
+            <label>¿Padeces alguna enfermedad crónica?:
+                <input type="text" name="cronica">
+            </label>
+            <label>Fecha de Pago:
+                <input type="date" name="fecha_pago">
+            </label>
+            <label>Categoría:
+                <select name="categoria">
+                    <option>Sub-14</option>
+                    <option>Sub-16</option>
+                    <option>Sub-18</option>
+                    <option>Alebrijes Teotihuacán</option>
+                    <option>Soles Teotihuacán</option>
+                </select>
+            </label>
+
+            <!-- Información Familiar (Papá) -->
+            <fieldset class="familiar">
+                <legend>Información Familiar (Papá)</legend>
+                <label>Apellido Paterno:<input type="text" name="papa_apellido_paterno"></label>
+                <label>Apellido Materno:<input type="text" name="papa_apellido_materno"></label>
+                <label>Nombre(s):<input type="text" name="papa_nombres"></label>
+                <label>Dirección:<input type="text" name="papa_direccion"></label>
+                <label>Teléfono de casa:<input type="tel" name="papa_tel_casa"></label>
+                <label>Teléfono celular:<input type="tel" name="papa_tel_cel"></label>
+            </fieldset>
+
+            <!-- Información Familiar (Mamá) -->
+            <fieldset class="familiar mama">
+                <legend>Información Familiar (Mamá)</legend>
+                <label>Apellido Paterno:<input type="text" name="mama_apellido_paterno"></label>
+                <label>Apellido Materno:<input type="text" name="mama_apellido_materno"></label>
+                <label>Nombre(s):<input type="text" name="mama_nombres"></label>
+                <label>Dirección:<input type="text" name="mama_direccion"></label>
+                <label>Teléfono de casa:<input type="tel" name="mama_tel_casa"></label>
+                <label>Teléfono celular:<input type="tel" name="mama_tel_cel"></label>
+            </fieldset>
+
+            <!-- Día de pago y mensualidad -->
+            <label>Día de pago de su mensualidad:
+                <select name="dia_pago_mensualidad" id="diaPagoMensualidad">
+                    <option value="">Selecciona…</option>
+                    <option value="1">1</option>
+                    <option value="15">15</option>
+                </select>
+            </label>
+            <label>Monto de su mensualidad:
+                <input type="number" name="monto_mensualidad" id="montoMensualidad" min="0" step="0.01" placeholder="0.00">
+            </label>
+
+            <!-- NUI -->
+            <label>¿Tiene NUI?
+                <select name="tiene_nui" id="tieneNui">
+                    <option value="">Selecciona…</option>
+                    <option value="si">Sí</option>
+                    <option value="no">No</option>
+                </select>
+            </label>
+            <label id="nuiField" style="display:none;">NUI:
+                <input type="text" name="nui" id="nuiInput" maxlength="20" placeholder="Ingresa NUI">
+            </label>
+
+            <!-- Archivos -->
+            <label>Imagen de Perfil:
+                <input type="file" name="imagen" accept="image/*">
+            </label>
+            <label>Archivero (PDF o Imágenes):
+                <input type="file" name="archivero" id="archivero" accept="application/pdf,image/*" multiple>
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Guardar Jugador</button>
+        </div>
+    </form>
+</section>
+
+<script src="/Menu/menu.js"></script>
+</body>
+</html>

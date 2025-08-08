@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal</title>
+
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Menú global -->
+  <link rel="stylesheet" href="/Menu/menu.css" />
+
+  <!-- Estilos Personal -->
+  <link rel="stylesheet" href="personal.css" />
+</head>
+<body>
+  <!-- MENÚ -->
+  <header class="header">
+    <a href="/DashboardGeneral/dashboard.html">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591"
+        alt="Logo Soles Teotihuacán"
+        class="logo"
+      />
+    </a>
+    <button class="menu-btn" id="menuToggle">&#9776;</button>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="/DashboardGeneral/dashboard.html">Inicio</a></li>
+      <li><a href="/Jugadores/jugadores.html">Jugadores</a></li>
+      <li><a class="active" href="/Personal/personal.html">Personal</a></li>
+      <li><a href="/Pagos/pagos.html">Pagos</a></li>
+      <li><a href="/Altas/altas.html">Altas</a></li>
+      <li><a href="/Bajas/bajas.html">Bajas</a></li>
+      <li><a href="/Exportar/exportar.html">Exportar</a></li>
+      <li><a href="/Inventario/inventario.html">Inventario</a></li>
+      <li><a href="/Escuela/escuela.html">Escuela</a></li>
+      <li><a href="/CasaClub/casaclub.html">Casa Club</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main class="jugadores-container">
+    <h2>Personal Registrado</h2>
+
+    <div class="jugadores-controls">
+      <div class="jc-input-wrap">
+        <input
+          type="text"
+          id="buscadorPersonal"
+          placeholder="Buscar personal..."
+        />
+        <span class="jc-input-icon">🔍</span>
+      </div>
+      <div class="jc-select-wrap">
+        <select id="filtroCargo">
+          <option value="">Todos los cargos</option>
+          <option value="Entrenador">Entrenador</option>
+          <option value="Administración">Administración</option>
+          <option value="Cocinero">Cocinero</option>
+          <option value="Mantenimiento">Mantenimiento</option>
+          <option value="Utileros">Utileros</option>
+          <option value="Guardia">Guardia</option>
+          <option value="Limpieza">Limpieza</option>
+          <option value="Construcción">Construcción</option>
+          <option value="Coordinacion Visorias Teotihuacán">Coordinacion Visorias Teotihuacán</option>
+          <option value="Coordinación Visorias Oaxaca">Coordinación Visorias Oaxaca</option>
+          <option value="Director deportivo">Director deportivo</option>
+          <option value="Ingeniero técnico y administrativo">Ingeniero técnico y administrativo</option>
+          <option value="Diseñador">Diseñador</option>
+          <option value="Fisioterapeuta">Fisioterapeuta</option>
+          <option value="Secretario Técnico">Secretario Técnico</option>
+          <option value="Visor">Visor</option>
+          <option value="Chofer">Chofer</option>
+        </select>
+      </div>
+      <button id="btnAbrirAltaPersonal" class="btn-principal">+ Agregar Personal</button>
+    </div>
+
+    <p class="jugadores-count" id="personalCount"></p>
+    <!-- Aquí se generarán las tarjetas con clase .jugador-card -->
+    <div class="jugadores-grid" id="personalGrid"></div>
+  </main>
+
+  <!-- MODAL DETALLE PERSONAL -->
+  <div id="personalModal" class="jugador-modal" aria-hidden="true">
+    <div class="jugador-modal-backdrop" data-close="true"></div>
+    <div class="jugador-modal-card">
+      <button class="jugador-modal-close" data-close="true">×</button>
+      <span class="jugador-dias-badge" id="diasPersonalClub"></span>
+
+      <div class="jugador-modal-header">
+        <img id="personalModalFoto" src="" alt="" />
+        <h3 id="personalModalTitulo"></h3>
+      </div>
+
+      <!-- Tabs -->
+      <div class="jugador-tabs">
+        <button class="tab-btn active" data-tab="datos">Datos</button>
+        <button class="tab-btn" data-tab="pagos">Pagos</button>
+      </div>
+
+      <!-- Contenidos de Tabs -->
+      <div class="jugador-tab-content active" id="tab-datos">
+        <div class="jugador-modal-datos" id="personalModalDatos"></div>
+      </div>
+
+      <div class="jugador-tab-content" id="tab-pagos">
+        <h3>Registrar Pago</h3>
+        <form id="formRegistrarPagoPersonal" class="pago-form">
+          <input type="hidden" id="pagoPersonalId" name="personal_id" />
+          <div class="pago-grid">
+            <label>Concepto:
+              <select name="concepto" required>
+                <option value="Sueldo">Sueldo</option>
+                <option value="Apoyo">Apoyo</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+            <label>Monto:
+              <input type="number" name="monto" min="0" step="0.01" required placeholder="0.00" />
+            </label>
+            <label>Fecha:
+              <input type="date" id="pagoFechaPersonal" name="fecha" required />
+            </label>
+          </div>
+          <button type="submit" class="btn-registrar-pago">Registrar Pago</button>
+        </form>
+
+        <h4>Historial de Pagos</h4>
+        <table class="tabla-pagos">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Concepto</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody id="personalPagosLista">
+            <tr><td colspan="3" class="no-pagos">No hay pagos registrados.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="jugador-tab-content" id="tab-archivero">
+        <div class="jugador-modal-archivero" id="personalModalArchivero"></div>
+      </div>
+
+      <div class="jugador-modal-footer">
+        <button type="button" class="btn-baja" id="btnDarBajaPersonal" title="Mover a Bajas">Dar de baja</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ALTA PERSONAL -->
+  <div id="modalAltaPersonal" class="modal">
+    <div class="modal-contenido formulario-alta">
+      <span id="cerrarAltaPersonal" class="cerrar">&times;</span>
+      <h2>Registro de Nuevo Personal</h2>
+      <form id="formAltaPersonal">
+        <label>Fecha de Registro:</label>
+        <input type="date" name="fechaRegistro" required />
+        <label>Apellido Paterno:</label>
+        <input type="text" name="apellidoPaterno" required />
+        <label>Apellido Materno:</label>
+        <input type="text" name="apellidoMaterno" required />
+        <label>Nombres:</label>
+        <input type="text" name="nombres" required />
+        <label>Lugar de Nacimiento:</label>
+        <input type="text" name="lugarNacimiento" required />
+        <label>Fecha de Nacimiento:</label>
+        <input type="date" name="fechaNacimiento" required />
+        <label>Edad al ingresar:</label>
+        <div class="grupo-edad">
+          <input type="number" name="edadAnos" placeholder="Años" min="0" required />
+          <input type="number" name="edadMeses" placeholder="Meses" min="0" max="11" required />
+        </div>
+        <label>Dirección:</label>
+        <input type="text" name="direccion" required />
+        <label>Teléfono:</label> <!-- añadido -->
+        <input type="text" name="telefono" placeholder="Ej. 5512345678" />
+        <label>Fecha de Pago:</label>
+        <input type="date" name="fechaPago" />
+        <label>Sueldo:</label>
+        <input type="number" name="sueldo" placeholder="$" step="0.01" />
+        <label>Cargo:</label>
+        <select name="cargo" required>
+          <option value="">Selecciona un cargo</option>
+          <option value="Entrenador">Entrenador</option>
+          <option value="Administración">Administración</option>
+          <option value="Cocinero">Cocinero</option>
+          <option value="Mantenimiento">Mantenimiento</option>
+          <option value="Utileros">Utileros</option>
+          <option value="Guardia">Guardia</option>
+          <option value="Limpieza">Limpieza</option>
+          <option value="Construcción">Construcción</option>
+          <option value="Coordinacion Visorias Teotihuacán">Coordinacion Visorias Teotihuacán</option>
+          <option value="Coordinación Visorias Oaxaca">Coordinación Visorias Oaxaca</option>
+          <option value="Director deportivo">Director deportivo</option>
+          <option value="Ingeniero técnico y administrativo">Ingeniero técnico y administrativo</option>
+          <option value="Diseñador">Diseñador</option>
+          <option value="Fisioterapeuta">Fisioterapeuta</option>
+          <option value="Secretario Técnico">Secretario Técnico</option>
+          <option value="Visor">Visor</option>
+          <option value="Chofer">Chofer</option>
+        </select>
+        <label>Foto de Perfil:</label>
+        <input type="file" name="foto" accept="image/*" />
+        <button type="submit" class="btn-principal">Guardar Personal</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/Menu/menu.js"></script>
+  <script src="/Utils/storage-utils.js"></script>
+  <script src="/Personal/personal.js"></script>
+</body>
+</html>

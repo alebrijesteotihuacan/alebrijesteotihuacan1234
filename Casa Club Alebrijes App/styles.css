@@ -1,0 +1,211 @@
+/* --- Reset --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, #F9E6D2, #F5EDE2);
+  overflow: hidden;
+}
+
+/* --- Pantalla de carga --- */
+.loader-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #F5EDE2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeOut 0.8s ease forwards;
+  animation-delay: 1.8s;
+}
+
+.loader-logo {
+  width: 100px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.9; }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+/* --- Wrapper --- */
+.login-wrapper {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInBody 0.8s ease forwards;
+  opacity: 0;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInBody {
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Login Card --- */
+.login-card {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  width: 340px;
+  max-width: 90%;
+  text-align: center;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: slideUpFade 1s ease forwards;
+}
+
+@keyframes slideUpFade {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.logo {
+  width: 90px;
+  margin-bottom: 1.2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+  color: #A35426;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+.login-card input,
+.login-card button {
+  width: 100%;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.login-card input {
+  border: 1px solid #ccc;
+}
+
+.login-card input:focus {
+  border-color: #D47F3F;
+  box-shadow: 0 0 5px rgba(212, 127, 63, 0.3);
+  outline: none;
+}
+
+/* --- Botón anaranjado fuerte --- */
+.login-card button {
+  background-color: #FF6B1A; /* Anaranjado vibrante */
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-card button:hover {
+  background-color: #e3590f;
+}
+
+/* --- Error --- */
+.error {
+  color: #D8000C;
+  background-color: #FFD2D2;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+/* --- Fade individual --- */
+.fade-slide {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeSlide 0.6s forwards;
+}
+
+@keyframes fadeSlide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay-0 { animation-delay: 2.2s; }
+.delay-1 { animation-delay: 2.4s; }
+.delay-2 { animation-delay: 2.6s; }
+.delay-3 { animation-delay: 2.8s; }
+.delay-4 { animation-delay: 3s; }
+.delay-5 { animation-delay: 3.2s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsivo --- */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  .logo {
+    width: 75px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .login-card input,
+  .login-card button {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-card {
+    width: 90%;
+    max-width: 360px;
+  }
+}

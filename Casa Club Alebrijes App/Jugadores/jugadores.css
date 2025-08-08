@@ -1,0 +1,648 @@
+/* =====================
+   VARIABLES Y BASE
+===================== */
+:root {
+  --naranja: #f26522;
+  --naranja-dark: #e0561d;
+  --negro: #1c1c1c;
+  --gris: #f4f6f9;
+  --blanco: #ffffff;
+  --gris-texto: #555;
+  --borde: #ddd;
+  --sombra: 0 4px 10px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+  --transicion: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background-color: var(--gris);
+  color: var(--negro);
+  min-height: 100vh;
+  line-height: 1.4;
+}
+
+/* =====================
+   CONTENEDOR PRINCIPAL
+===================== */
+.jugadores-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+.jugadores-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--negro);
+  margin-bottom: 20px;
+}
+
+/* =====================
+   CONTROLES BUSCADOR
+===================== */
+.jugadores-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.jc-input-wrap {
+  position: relative;
+  flex: 1 1 280px;
+  max-width: 400px;
+}
+
+.jc-input-wrap input {
+  width: 100%;
+  padding: 10px 35px 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--borde);
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transicion);
+}
+
+.jc-input-wrap input:focus {
+  border-color: var(--naranja);
+  box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.15);
+}
+
+.jc-input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--gris-texto);
+}
+
+.jc-select-wrap {
+  flex: 1 1 200px;
+  max-width: 200px;
+}
+
+.jc-select-wrap select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--borde);
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transicion);
+}
+
+.jc-select-wrap select:focus {
+  border-color: var(--naranja);
+  box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.15);
+}
+
+/* =====================
+   GRID DE JUGADORES
+===================== */
+.jugadores-count {
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  color: var(--gris-texto);
+}
+
+.jugadores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.jugador-card {
+  background: var(--blanco);
+  border-radius: var(--radius);
+  box-shadow: var(--sombra);
+  text-align: center;
+  padding: 15px 10px;
+  cursor: pointer;
+  transition: var(--transicion);
+}
+
+.jugador-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.jugador-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border: 3px solid var(--naranja);
+}
+
+.jugador-card h4 {
+  font-size: 1rem;
+  color: var(--negro);
+  font-weight: 600;
+}
+
+/* =====================
+   MODAL DETALLE
+===================== */
+.jugador-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.jugador-modal.show {
+  display: flex;
+}
+
+.jugador-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+.jugador-modal-card {
+  position: relative;
+  background: var(--blanco);
+  border-radius: 16px;
+  max-width: 600px;
+  width: 95%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  z-index: 2100;
+  padding: 20px;
+  animation: slideUp 0.35s ease forwards;
+}
+
+.jugador-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--naranja);
+  color: var(--blanco);
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  transition: var(--transicion);
+}
+
+.jugador-modal-close:hover {
+  background: var(--naranja-dark);
+}
+
+.jugador-dias-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--negro);
+  color: var(--blanco);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.jugador-modal-header {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.jugador-modal-header img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--naranja);
+  margin-bottom: 10px;
+}
+
+.jugador-modal-header h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--negro);
+}
+
+/* =====================
+   TABS
+===================== */
+.jugador-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  background: #eee;
+  color: var(--negro);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transicion);
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+  background: var(--naranja);
+  color: var(--blanco);
+}
+
+.jugador-tab-content {
+  display: none;
+  animation: fadeIn 0.3s forwards;
+}
+
+.jugador-tab-content.active {
+  display: block;
+}
+
+/* =====================
+   SECCIÓN DATOS
+===================== */
+.jugador-modal-datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+  font-size: 0.9rem;
+}
+
+.jugador-modal-datos div {
+  padding: 5px 0;
+}
+
+.jugador-modal-datos strong {
+  color: var(--gris-texto);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* =====================
+   PAGOS
+===================== */
+.jugador-modal-pagos h4 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.jmp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.jmp-row label {
+  font-size: 0.85rem;
+  color: var(--gris-texto);
+  font-weight: 600;
+}
+
+.jmp-row input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.btn-pago {
+  display: inline-block;
+  background: var(--naranja);
+  color: var(--blanco);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transicion);
+}
+
+.btn-pago:hover {
+  background: var(--naranja-dark);
+}
+
+.jugador-pagos-lista {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+.jugador-pagos-lista .pago-item {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* =====================
+   ARCHIVERO
+===================== */
+.jugador-modal-archivero {
+  font-size: 0.9rem;
+  color: var(--gris-texto);
+}
+
+/* =====================
+   ANIMACIONES
+===================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 768px) {
+  .jugador-modal-datos {
+    grid-template-columns: 1fr;
+  }
+  .jmp-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajuste de modal con scroll */
+.jugador-modal-card {
+  max-height: 90vh;
+  overflow-y: auto;
+  padding-bottom: 30px;
+}
+
+/* Ajuste para tabs visibles al hacer scroll */
+.jugador-tabs {
+  position: sticky;
+  top: 0;
+  background: var(--blanco);
+  padding-top: 5px;
+  z-index: 10;
+}
+
+/* Animación de apertura/cierre disparada por clases desde JS */
+.jugador-modal.open-anim .jugador-modal-card {
+  animation: slideUp 0.3s ease forwards;
+}
+.jugador-modal.open-anim .jugador-modal-backdrop {
+  animation: fadeIn 0.3s forwards;
+}
+.jugador-modal.closing .jugador-modal-card {
+  animation: slideDown 0.25s ease forwards;
+}
+.jugador-modal.closing .jugador-modal-backdrop {
+  animation: fadeOut 0.25s forwards;
+}
+
+/* Scroll interno del modal */
+.jugador-modal-card {
+  max-height: 90vh;
+  overflow-y: auto;
+  padding-bottom: 30px;
+}
+
+/* Tabs pegajosos dentro del modal cuando haces scroll */
+.jugador-tabs {
+  position: sticky;
+  top: 0;
+  background: var(--blanco);
+  padding-top: 5px;
+  z-index: 10;
+}
+
+/* Nuevas animaciones */
+@keyframes slideDown {
+  from {transform: translateY(0); opacity:1;}
+  to   {transform: translateY(50px); opacity:0;}
+}
+@keyframes fadeOut {
+  from {opacity:1;}
+  to {opacity:0;}
+}
+
+/* Archivero listado */
+.archivero-list {
+  display: grid;
+  gap: 8px;
+}
+.archivero-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  padding: 8px 10px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+}
+.archivero-btn {
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--naranja);
+  color: var(--blanco);
+  text-decoration: none;
+  transition: var(--transicion);
+}
+.archivero-btn.ver {
+  background: #666;
+}
+.archivero-btn.ver:hover {
+  background: #444;
+}
+.archivero-btn.descargar:hover {
+  background: var(--naranja-dark);
+}
+
+/* Campo concepto custom (cuando "Otro") */
+.pago-concepto-custom {
+  margin-top: 6px;
+  padding: 6px;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* Pagos */
+.pago-form {
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+}
+
+.pago-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pago-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.btn-registrar-pago {
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-registrar-pago:hover {
+  background: #0056b3;
+}
+
+/* Tabla Pagos */
+.tabla-pagos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.tabla-pagos th, .tabla-pagos td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.tabla-pagos th {
+  font-weight: 600;
+}
+
+.tabla-pagos tbody tr:hover {
+  background: #f9f9f9;
+}
+
+    .pago-form {
+      background: #f9fafc;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+    .pago-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .pago-grid label {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      color: #444;
+      font-weight: 500;
+    }
+    .pago-grid select,
+    .pago-grid input {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+      background: #fff;
+    }
+    .pago-grid select:focus,
+    .pago-grid input:focus {
+      border-color: #0077cc;
+    }
+    .btn-registrar-pago {
+      background: #0077cc;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-registrar-pago:hover {
+      background: #005fa3;
+    }
+
+    .tabla-pagos {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+    .tabla-pagos thead {
+      background: #0077cc;
+      color: #fff;
+    }
+    .tabla-pagos th, .tabla-pagos td {
+      text-align: left;
+      padding: 10px 12px;
+    }
+    .tabla-pagos tbody tr:nth-child(even) {
+      background: #f4f6f8;
+    }
+    .tabla-pagos tbody tr:hover {
+      background: #e9f1f8;
+    }
+
+.btn-baja {
+  background: #d32f2f;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.btn-baja:hover {
+  background: #b71c1c;
+}

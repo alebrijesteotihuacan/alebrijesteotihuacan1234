@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pagos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- Menú global -->
+  <link rel="stylesheet" href="/Menu/menu.css" />
+
+  <!-- Estilos página Pagos -->
+  <link rel="stylesheet" href="pagos.css" />
+</head>
+<body>
+  <!-- MENÚ -->
+  <header class="header">
+    <a href="/DashboardGeneral/dashboard.html">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591"
+        alt="Logo Soles Teotihuacán"
+        class="logo"
+      />
+    </a>
+    <button class="menu-btn" id="menuToggle">&#9776;</button>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="/DashboardGeneral/dashboard.html">Inicio</a></li>
+      <li><a href="/Jugadores/jugadores.html">Jugadores</a></li>
+      <li><a href="/Personal/personal.html">Personal</a></li>
+      <li><a class="active" href="/Pagos/pagos.html">Pagos</a></li>
+      <li><a href="/Altas/altas.html">Altas</a></li>
+      <li><a href="/Bajas/bajas.html">Bajas</a></li>
+      <li><a href="/Exportar/exportar.html">Exportar</a></li>
+      <li><a href="/Inventario/inventario.html">Inventario</a></li>
+      <li><a href="/Escuela/escuela.html">Escuela</a></li>
+      <li><a href="/CasaClub/casaclub.html">Casa Club</a></li>
+    </ul>
+  </nav>
+
+  <main class="pagos-main">
+    <h1>Pagos</h1>
+
+    <!-- FILTROS -->
+    <section class="pagos-filtros">
+      <div class="pf-field">
+        <label>Desde:
+          <input type="date" id="filtroDesde" />
+        </label>
+      </div>
+      <div class="pf-field">
+        <label>Hasta:
+          <input type="date" id="filtroHasta" />
+        </label>
+      </div>
+      <div class="pf-field pf-actions">
+        <button id="btnAplicar" class="btn-primario">Aplicar</button>
+        <button id="btnLimpiar" class="btn-secundario">Limpiar</button>
+      </div>
+    </section>
+
+    <!-- KPIs -->
+    <section class="pagos-kpis">
+      <div class="pago-kpi-card">
+        <h3>Total Recaudado</h3>
+        <span id="kpiTotalRecaudado">$0.00</span>
+      </div>
+      <div class="pago-kpi-card">
+        <h3>Número de Pagos</h3>
+        <span id="kpiNumPagos">0</span>
+      </div>
+      <div class="pago-kpi-card">
+        <h3>Promedio por Pago</h3>
+        <span id="kpiPromedio">$0.00</span>
+      </div>
+    </section>
+
+    <!-- GRÁFICA -->
+    <section class="pagos-grafica">
+      <h2>Pagos Acumulados</h2>
+      <div class="grafica-wrapper">
+        <canvas id="pagosChart" height="120"></canvas>
+      </div>
+    </section>
+
+    <!-- TABLA -->
+    <section class="pagos-tabla-section">
+      <h2>Detalle de Pagos</h2>
+      <div class="tabla-wrapper">
+        <table class="pagos-tabla">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Jugador</th>
+              <th>Concepto</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody id="pagosTablaBody">
+            <tr><td colspan="4" class="no-pagos">No hay pagos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Menú JS -->
+  <script defer src="/Menu/menu.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Lógica Pagos -->
+  <script defer src="pagos.js"></script>
+</body>
+</html>

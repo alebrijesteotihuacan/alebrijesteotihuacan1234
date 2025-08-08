@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bajas (Papelera) - Soles Teotihuacán</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <!-- Menú global -->
+  <link rel="stylesheet" href="/Menu/menu.css" />
+
+  <!-- Estilos Bajas -->
+  <link rel="stylesheet" href="bajas.css" />
+</head>
+<body>
+  <!-- MENÚ -->
+  <header class="header">
+    <a href="/DashboardGeneral/dashboard.html">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591"
+        alt="Logo Soles Teotihuacán"
+        class="logo"
+      />
+    </a>
+    <button class="menu-btn" id="menuToggle">&#9776;</button>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="/DashboardGeneral/dashboard.html">Inicio</a></li>
+      <li><a href="/Jugadores/jugadores.html">Jugadores</a></li>
+      <li><a href="/Personal/personal.html">Personal</a></li>
+      <li><a href="/Pagos/pagos.html">Pagos</a></li>
+      <li><a href="/Altas/altas.html">Altas</a></li>
+      <li><a class="active" href="/Bajas/bajas.html">Bajas</a></li>
+      <li><a href="/Exportar/exportar.html">Exportar</a></li>
+      <li><a href="/Inventario/inventario.html">Inventario</a></li>
+      <li><a href="/Escuela/escuela.html">Escuela</a></li>
+      <li><a href="/CasaClub/casaclub.html">Casa Club</a></li>
+    </ul>
+  </nav>
+
+  <main class="bajas-container">
+    <h1>Papelera de Jugadores</h1>
+    <p class="bajas-desc">
+      Los jugadores mostrados aquí han sido dados de baja temporal. Puedes <strong>Restaurarlos</strong> o <strong>Eliminarlos definitivamente</strong> (se borrarán todos sus datos).
+    </p>
+
+    <!-- Controles -->
+    <div class="bajas-controls">
+      <div class="jc-input-wrap">
+        <input type="text" id="buscadorBajas" placeholder="Buscar jugador..." />
+        <span class="jc-input-icon">🔍</span>
+      </div>
+      <div class="jc-select-wrap">
+        <select id="filtroCategoriaBajas"></select>
+      </div>
+    </div>
+
+    <p class="bajas-count" id="bajasCount"></p>
+
+    <div class="bajas-grid" id="bajasGrid"></div>
+  </main>
+
+  <!-- MODAL CONFIRMACIÓN BORRADO -->
+  <div id="bajaDeleteModal" class="baja-del-modal" aria-hidden="true">
+    <div class="baja-del-backdrop" data-close="true"></div>
+    <div class="baja-del-card">
+      <button class="baja-del-close" data-close="true">×</button>
+      <h2>Eliminar definitivamente</h2>
+      <p>Esta acción borrará todos los datos del jugador (pagos, documentos, etc.).</p>
+      <p>Escribe <strong>BORRAR</strong> para confirmar.</p>
+      <input type="text" id="bajaDelConfirmInput" placeholder="BORRAR" />
+      <div class="baja-del-actions">
+        <button type="button" class="btn-secundario" data-close="true">Cancelar</button>
+        <button type="button" id="bajaDelConfirmBtn" class="btn-peligro" disabled>Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script defer src="/Menu/menu.js"></script>
+  <script defer src="bajas.js"></script>
+  <script src="/Utils/storage-utils.js"></script>
+
+</body>
+</html>

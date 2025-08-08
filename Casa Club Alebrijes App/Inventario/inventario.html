@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventario</title>
+
+  <!-- Fuente (puedes quitar este link si controlas tipografías desde inventario.css) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Menú global (header/sidebar) -->
+  <link rel="stylesheet" href="/Menu/menu.css" />
+
+  <!-- CSS específico para Inventario -->
+  <link rel="stylesheet" href="/Inventario/inventario.css" />
+</head>
+<body>
+  <!-- HEADER / MENÚ -->
+  <header class="header">
+    <a href="/DashboardGeneral/dashboard.html">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591"
+        alt="Logo Alebrijes Teotihuacán"
+        class="logo"
+      />
+    </a>
+    <button class="menu-btn" id="menuToggle" aria-label="Abrir menú">&#9776;</button>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar" aria-label="Navegación principal">
+    <ul>
+      <li><a href="/DashboardGeneral/dashboard.html">Inicio</a></li>
+      <li><a href="/Jugadores/jugadores.html">Jugadores</a></li>
+      <li><a href="/Personal/personal.html">Personal</a></li>
+      <li><a href="/Pagos/pagos.html">Pagos</a></li>
+      <li><a href="/Altas/altas.html">Altas</a></li>
+      <li><a href="/Bajas/bajas.html">Bajas</a></li>
+      <li><a href="/Exportar/exportar.html">Exportar</a></li>
+      <li><a class="active" href="/Inventario/inventario.html">Inventario</a></li>
+      <li><a href="/Escuela/escuela.html">Escuela</a></li>
+      <li><a href="/CasaClub/casaclub.html">Casa Club</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="jugadores-container" id="mainInventario">
+    <h2>Inventario Registrado</h2>
+
+    <!-- CONTROLES: buscador + botón añadir -->
+    <div class="jugadores-controls">
+      <!-- Buscador -->
+      <div class="jc-input-wrap">
+        <input
+          type="text"
+          id="buscadorInventario"
+          placeholder="Buscar inventario..."
+          aria-label="Buscar inventario"
+        />
+        <span class="jc-input-icon">🔍</span>
+      </div>
+
+      <!-- Botón añadir (abre modal) -->
+      <button id="btnAbrirAltaInventario" class="btn-principal">+ Agregar Inventario</button>
+    </div>
+
+    <!-- Contador de resultados -->
+    <p class="jugadores-count" id="inventarioCount" aria-live="polite"></p>
+
+    <!-- Grid donde se renderizan las tarjetas (JS inyectará .jugador-card) -->
+    <div class="jugadores-grid" id="inventarioGrid" role="list"></div>
+  </main>
+
+  <!-- MODAL - DETALLE / VER ÍTEM -->
+  <div id="inventarioModal" class="jugador-modal" aria-hidden="true">
+    <div class="jugador-modal-backdrop" data-close="true"></div>
+
+    <div class="jugador-modal-card" role="dialog" aria-modal="true" aria-labelledby="inventarioModalTitulo">
+      <button class="jugador-modal-close" data-close="true" aria-label="Cerrar">×</button>
+      <span class="jugador-dias-badge" id="badgeInventario" aria-hidden="true"></span>
+
+      <div class="jugador-modal-header">
+        <img id="inventarioModalFoto" src="" alt="Foto del ítem" />
+        <h3 id="inventarioModalTitulo"></h3>
+      </div>
+
+      <!-- Tabs (solo Información) -->
+      <div class="jugador-tabs">
+        <button class="tab-btn active" data-tab="informacion">Información</button>
+      </div>
+
+      <!-- Contenido: Cantidad, Descripción y Costo (si aplica) -->
+      <div class="jugador-tab-content active" id="tab-informacion">
+        <div class="jugador-modal-datos" id="inventarioModalDatos">
+          <!-- Inyección dinámica desde JS:
+               - Cantidad
+               - Información / descripción
+               - Costo (solo si aplica)
+          -->
+        </div>
+      </div>
+
+      <div class="jugador-modal-footer">
+        <button type="button" class="btn-baja" id="btnDarBajaInventario" title="Dar de baja ítem">Dar de baja</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL - ALTA / AGREGAR INVENTARIO -->
+  <div id="modalAltaInventario" class="modal" aria-hidden="true">
+    <div class="modal-contenido formulario-alta" role="document">
+      <button id="cerrarAltaInventario" class="cerrar" aria-label="Cerrar formulario">&times;</button>
+      <h2>Agregar Nuevo Ítem al Inventario</h2>
+
+      <form id="formAltaInventario" enctype="multipart/form-data" autocomplete="off">
+        <!-- Nombre -->
+        <label for="nombreItem">Nombre del ítem:</label>
+        <input id="nombreItem" type="text" name="nombre" required placeholder="Ej. Balón, Conos, Botas..." />
+
+        <!-- Cantidad -->
+        <label for="cantidadItem">Cantidad:</label>
+        <input id="cantidadItem" type="number" name="cantidad" min="0" step="1" required value="1" />
+
+        <!-- Información / descripción -->
+        <label for="informacionItem">Información / Descripción:</label>
+        <textarea id="informacionItem" name="informacion" rows="4" placeholder="Descripción, estado, notas..."></textarea>
+
+        <!-- Tiene costo -->
+        <label for="tieneCostoField">¿Tiene costo?</label>
+        <select id="tieneCostoField" name="tieneCosto" required>
+          <option value="no">No</option>
+          <option value="si">Sí</option>
+        </select>
+
+        <!-- Monto (solo visible si tieneCosto === 'si') -->
+        <div id="montoWrap" style="display:none;">
+          <label for="montoField">Monto (MXN):</label>
+          <input id="montoField" type="number" name="monto" step="0.01" min="0" placeholder="0.00" />
+        </div>
+
+        <!-- Foto opcional -->
+        <label for="fotoItem">Foto (opcional):</label>
+        <input id="fotoItem" type="file" name="foto" accept="image/*" />
+
+        <button type="submit" class="btn-principal">Guardar Inventario</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS (mantén el orden: menu.js, storage-utils.js, inventario.js) -->
+  <script src="/Menu/menu.js"></script>
+  <script src="/Utils/storage-utils.js"></script>
+  <script src="/Inventario/inventario.js"></script>
+</body>
+</html>

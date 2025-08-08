@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jugadores</title>
+
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Menú global -->
+  <link rel="stylesheet" href="/Menu/menu.css" />
+  
+  <!-- Estilos Jugadores -->
+  <link rel="stylesheet" href="jugadores.css" />
+</head>
+<body>
+  <!-- MENÚ -->
+  <header class="header">
+    <a href="/DashboardGeneral/dashboard.html">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591"
+        alt="Logo Soles Teotihuacán"
+        class="logo"
+      />
+    </a>
+    <button class="menu-btn" id="menuToggle">&#9776;</button>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="/DashboardGeneral/dashboard.html">Inicio</a></li>
+      <li><a class="active" href="/Jugadores/jugadores.html">Jugadores</a></li>
+      <li><a href="/Personal/personal.html">Personal</a></li>
+      <li><a href="/Pagos/pagos.html">Pagos</a></li>
+      <li><a href="/Altas/altas.html">Altas</a></li>
+      <li><a href="/Bajas/bajas.html">Bajas</a></li>
+      <li><a href="/Exportar/exportar.html">Exportar</a></li>
+      <li><a href="/Inventario/inventario.html">Inventario</a></li>
+      <li><a href="/Escuela/escuela.html">Escuela</a></li>
+      <li><a href="/CasaClub/casaclub.html">Casa Club</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main class="jugadores-container">
+    <h2>Jugadores Registrados</h2>
+
+    <div class="jugadores-controls">
+      <div class="jc-input-wrap">
+        <input
+          type="text"
+          id="buscadorJugadores"
+          placeholder="Buscar jugador..."
+        />
+        <span class="jc-input-icon">🔍</span>
+      </div>
+      <div class="jc-select-wrap">
+        <select id="filtroCategoria"></select>
+      </div>
+    </div>
+
+    <p class="jugadores-count" id="jugadoresCount"></p>
+
+    <div class="jugadores-grid" id="jugadoresGrid"></div>
+  </main>
+
+  <!-- MODAL DETALLE -->
+  <div id="jugadorModal" class="jugador-modal" aria-hidden="true">
+    <div class="jugador-modal-backdrop" data-close="true"></div>
+    <div class="jugador-modal-card">
+      <button class="jugador-modal-close" data-close="true">×</button>
+      <span class="jugador-dias-badge" id="diasEnClub"></span>
+
+      <div class="jugador-modal-header">
+        <img id="jugadorModalFoto" src="" alt="" />
+        <h3 id="jugadorModalTitulo"></h3>
+      </div>
+
+      <!-- Tabs -->
+      <div class="jugador-tabs">
+        <button class="tab-btn active" data-tab="datos">Datos</button>
+        <button class="tab-btn" data-tab="pagos">Pagos</button>
+        <button class="tab-btn" data-tab="archivero">Archivero</button>
+      </div>
+
+      <!-- Contenidos -->
+      <div class="jugador-tab-content active" id="tab-datos">
+        <div class="jugador-modal-datos" id="jugadorModalDatos"></div>
+      </div>
+
+      <div class="jugador-tab-content" id="tab-pagos">
+        <h3>Registrar Pago</h3>
+        <form id="formRegistrarPago" class="pago-form">
+          <input type="hidden" id="pagoJugadorId" name="jugador_id">
+          <div class="pago-grid">
+            <label>Concepto:
+              <select name="concepto" required>
+                <option value="Registro">Registro</option>
+                <option value="Mensualidad">Mensualidad</option>
+                <option value="Uniformes">Uniformes</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+            <label>Monto:
+              <input type="number" name="monto" min="0" step="0.01" required placeholder="0.00">
+            </label>
+            <label>Fecha:
+              <input type="date" id="pagoFecha" name="fecha" required>
+            </label>
+          </div>
+          <button type="submit" class="btn-registrar-pago">Registrar Pago</button>
+        </form>
+
+        <h4>Historial de Pagos</h4>
+        <table class="tabla-pagos">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Concepto</th>
+              <th>Monto</th>
+            </tr>
+          </thead>
+          <tbody id="jugadorPagosLista">
+            <tr><td colspan="3" class="no-pagos">No hay pagos registrados.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="jugador-tab-content" id="tab-archivero">
+        <div class="jugador-modal-archivero" id="jugadorModalArchivero"></div>
+      </div>
+
+      <!-- Footer acciones -->
+      <div class="jugador-modal-footer">
+        <button type="button" class="btn-baja" id="btnDarBaja" title="Mover a Bajas (papelera)">Dar de baja</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/Menu/menu.js"></script>
+  <script src="jugadores.js"></script>
+  <script src="/Utils/storage-utils.js"></script>
+
+</body>
+</html>

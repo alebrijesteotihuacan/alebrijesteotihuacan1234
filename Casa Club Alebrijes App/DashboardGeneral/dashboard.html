@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Alebrijes Teotihuacán</title>
+  <link rel="stylesheet" href="/DashboardGeneral/dashboard.css" />
+  <link rel="stylesheet" href="/Menu/menu.css">
+  <script defer src="/Menu/menu.js"></script>
+</head>
+<body>
+  <header class="header">
+    <a href="/DashboardGeneral/dashboard.html">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591"
+        alt="Logo Alebrijes"
+        class="logo"
+      />
+    </a>
+    <button class="menu-btn" id="menuToggle">&#9776;</button>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav class="sidebar" id="sidebar">
+    <ul>
+      <li><a class="active" href="/DashboardGeneral/dashboard.html">Inicio</a></li>
+      <li><a href="/Jugadores/jugadores.html">Jugadores</a></li>
+      <li><a href="/Personal/personal.html">Personal</a></li>
+      <li><a href="/Pagos/pagos.html">Pagos</a></li>
+      <li><a href="/Altas/altas.html">Altas</a></li>
+      <li><a href="/Bajas/bajas.html">Bajas</a></li>
+      <li><a href="/Exportar/exportar.html">Exportar</a></li>
+      <li><a href="/Inventario/inventario.html">Inventario</a></li>
+      <li><a href="/Escuela/escuela.html">Escuela</a></li>
+      <li><a href="/CasaClub/casaclub.html">Casa Club</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <section class="cards-carousel">
+      <div class="card">
+        <h3>Jugadores Registrados</h3>
+        <span id="totalJugadores">0</span>
+      </div>
+      <div class="card">
+        <h3>Fecha y Hora</h3>
+        <span id="fechaHora"></span>
+      </div>
+      <div class="card">
+        <h3>Total Adeudo</h3>
+        <span id="totalAdeudo">$0.00</span>
+      </div>
+      <div class="card">
+        <h3>Total Recaudado</h3>
+        <span id="totalRecaudado">$0.00</span>
+      </div>
+      <div class="card">
+        <h3>Notificaciones</h3>
+        <span id="notificaciones">Sin novedades</span>
+      </div>
+    </section>
+
+    <section class="ultimos-jugadores">
+  <h2>Jugadores Registrados</h2>
+  <div class="jugadores-carousel" id="jugadoresCarousel">
+    <!-- Aquí se insertarán dinámicamente las cartas de jugadores -->
+  </div>
+</section>
+
+    <section class="tabla-section">
+      <h2>Últimos Pagos Registrados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody id="tablaPagos"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/DashboardGeneral/dashboard.js" defer></script>
+</body>
+</html>

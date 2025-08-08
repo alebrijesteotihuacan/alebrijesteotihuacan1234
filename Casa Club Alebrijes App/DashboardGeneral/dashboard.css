@@ -1,0 +1,178 @@
+:root {
+  --naranja: #f26522;
+  --negro: #1c1c1c;
+  --gris: #f3f3f3;
+  --blanco: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--gris);
+  color: var(--negro);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-content {
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Cards carousel */
+.cards-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+.card {
+  min-width: 260px;
+  background: var(--blanco);
+  padding: 30px;
+  border-left: 5px solid var(--naranja);
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+  scroll-snap-align: start;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s forwards;
+}
+
+.card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-size: 1rem;
+  color: var(--naranja);
+  margin-bottom: 8px;
+}
+
+.card span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--negro);
+}
+
+/* Tabla */
+.tabla-section {
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s 0.6s forwards;
+}
+
+.tabla-section h2 {
+  font-size: 1.2rem;
+  color: var(--negro);
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--blanco);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background-color: var(--naranja);
+  color: #fff;
+}
+
+tbody tr:hover {
+  background-color: #fff8e1;
+  transition: background 0.3s;
+}
+
+/* Animaciones */
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Carrusel de Jugadores */
+.ultimos-jugadores {
+  margin: 20px;
+}
+
+.ultimos-jugadores h2 {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.jugadores-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+.jugadores-carousel::-webkit-scrollbar {
+  display: none; /* Oculta scrollbar */
+}
+
+.jugador-card {
+  flex: 0 0 auto;
+  width: 150px;
+  text-align: center;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  scroll-snap-align: center;
+  padding: 10px;
+}
+
+.jugador-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.jugador-card h4 {
+  margin-top: 8px;
+  font-size: 1em;
+}
